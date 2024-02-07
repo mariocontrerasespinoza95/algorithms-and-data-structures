@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-
-//DataStructures.Array.ProgramPrint();
+﻿//DataStructures.Array.ProgramPrint();
 //DataStructures.LinkedList.ProgramPrint();
 //DataStructures.Stack.ProgramPrint();
 //DataStructures.ArrayQueue.ProgramPrint();

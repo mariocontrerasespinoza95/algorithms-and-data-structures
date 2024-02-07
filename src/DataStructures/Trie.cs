@@ -23,26 +23,26 @@ internal sealed class Trie
     private class Node(char value)
     {
         internal char Value { get; init; } = value;
-        private readonly Dictionary<char, Node> Children = [];
+        private readonly Dictionary<char, Node> _children = [];
         internal bool IsEndOfWord { get; set; }
 
         public override string ToString() => "value=" + Value;
 
-        internal bool HasChild(char ch) => Children.ContainsKey(ch);
+        internal bool HasChild(char ch) => _children.ContainsKey(ch);
 
-        internal void AddChild(char ch) => Children[ch] = new Node(ch);
+        internal void AddChild(char ch) => _children[ch] = new Node(ch);
 
         internal Node? GetChild(char ch)
         {
-            Children.TryGetValue(ch, out Node? child);
+            _children.TryGetValue(ch, out Node? child);
             return child;
         }
 
-        internal IEnumerable<Node> GetChildren() => Children.Values.ToArray();
+        internal IEnumerable<Node> GetChildren() => _children.Values.ToArray();
 
-        internal bool HasChildren() => Children.Count > 0;
+        internal bool HasChildren() => _children.Count > 0;
 
-        internal void RemoveChild(char ch) => Children.Remove(ch);
+        internal void RemoveChild(char ch) => _children.Remove(ch);
     }
 
     private readonly Node _root = new(' ');
