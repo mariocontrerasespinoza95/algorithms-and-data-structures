@@ -14,7 +14,7 @@
   - [Weighted Graphs](#weighted-graphs)
 
 # Big O Notation
-[Read more](./Big%20O%20Notation.pdf)
+[Read more](./assets/Big-O-Notation.pdf)
 
 # Algorithms
 
