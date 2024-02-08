@@ -1,23 +1,7 @@
-﻿namespace DataStructures;
+﻿namespace WeightedGraphs;
 
 internal class WeightedGraph
 {
-    public static void ProgramPrint()
-    {
-        var graph = new WeightedGraph();
-        graph.AddNode("A");
-        graph.AddNode("B");
-        graph.AddNode("C");
-        graph.AddNode("D");
-        graph.AddEdge(from: "A", to: "B", weight: 3);
-        graph.AddEdge(from: "B", to: "D", weight: 4);
-        graph.AddEdge(from: "C", to: "D", weight: 5);
-        graph.AddEdge(from: "A", to: "C", weight: 1);
-        graph.AddEdge(from: "B", to: "C", weight: 2);
-        WeightedGraph tree = graph.GetMinimumSpanningTree();
-        tree.Print();
-    }
-
     private class Node(string label)
     {
         internal readonly string Label = label;
@@ -41,9 +25,9 @@ internal class WeightedGraph
 
     private readonly Dictionary<string, Node> _nodes = [];
 
-    private void AddNode(string label) => _nodes[label] = new Node(label);
+    public void AddNode(string label) => _nodes[label] = new Node(label);
 
-    private void AddEdge(string from, string to, int weight)
+    public void AddEdge(string from, string to, int weight)
     {
         _nodes.TryGetValue(from, out Node fromNode);
         ArgumentNullException.ThrowIfNull(fromNode);
@@ -55,14 +39,14 @@ internal class WeightedGraph
         toNode.AddEdge(fromNode, weight);
     }
 
-    private void Print()
+    public void Print()
     {
         foreach (Node node in _nodes.Values)
         {
             List<Edge> edges = node.GetEdges();
             if (edges.Count > 0)
             {
-                Console.WriteLine(node + " is connected to " + Array.ToString(edges.ToArray()));
+                Console.WriteLine(node + " is connected to " + $"[{string.Join(", ", edges)}]");
             }
         }
     }
@@ -171,7 +155,7 @@ internal class WeightedGraph
         return false;
     }
 
-    private WeightedGraph GetMinimumSpanningTree()
+    public WeightedGraph GetMinimumSpanningTree()
     {
         var tree = new WeightedGraph();
 

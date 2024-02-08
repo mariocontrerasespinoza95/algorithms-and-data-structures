@@ -1,4 +1,4 @@
-﻿namespace DataStructures;
+﻿namespace WeightedGraphs;
 
 internal sealed class Path
 {
@@ -8,6 +8,6 @@ internal sealed class Path
 
     public override string ToString()
     {
-        return Array.ToString(_nodes.ToArray());
+        return $"[{string.Join(", ", _nodes)}]";
     }
 }

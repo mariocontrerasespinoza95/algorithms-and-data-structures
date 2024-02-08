@@ -1,25 +1,13 @@
-﻿namespace DataStructures;
+﻿namespace Stacks;
 
 internal sealed class Stack(int size)
 {
     private readonly int[] _items = new int[size];
     private int _count;
 
-    public static void ProgramPrint()
-    {
-        var stack = new Stack(5);
-        stack.Push(10);
-        stack.Push(20);
-        stack.Push(30);
-        Console.WriteLine(stack);
-        Console.WriteLine(stack.Pop());
-        Console.WriteLine(stack);
-        Console.WriteLine(stack.Peek());
-    }
-
     private bool IsEmpty() { return _count == 0; }
 
-    private void Push(int item)
+    public void Push(int item)
     {
         if (_count == _items.Length)
         {
@@ -29,7 +17,7 @@ internal sealed class Stack(int size)
         _items[_count++] = item;
     }
 
-    private int Pop()
+    public int Pop()
     {
         if (IsEmpty())
         {
@@ -39,7 +27,7 @@ internal sealed class Stack(int size)
         return _items[--_count];
     }
 
-    private int Peek()
+    public int Peek()
     {
         if (IsEmpty())
         {
@@ -51,6 +39,8 @@ internal sealed class Stack(int size)
 
     public override string ToString()
     {
-        return Array.ToString(_items);
+        return ToString(_items);
     }
+    
+    private static string ToString<T>(IEnumerable<T> collection) => $"[{string.Join(", ", collection)}]";
 }

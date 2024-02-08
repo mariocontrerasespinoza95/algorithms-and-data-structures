@@ -1,15 +1,7 @@
-﻿namespace DataStructures;
+﻿namespace AVLTrees;
 
 internal sealed class AvlTree
 {
-    public static void ProgramPrint()
-    {
-        var tree = new AvlTree();
-        tree.Insert(10);
-        tree.Insert(20);
-        tree.Insert(30);
-    }
-
     private class AvlNode(int value)
     {
         internal int Value { get; init; } = value;
@@ -25,7 +17,7 @@ internal sealed class AvlTree
 
     private AvlNode? _root;
 
-    private void Insert(int value) => _root = Insert(_root, value);
+    public void Insert(int value) => _root = Insert(_root, value);
     private static AvlNode Insert(AvlNode? root, int value)
     {
         var node = new AvlNode(value);

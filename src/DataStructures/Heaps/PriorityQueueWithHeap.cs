@@ -1,4 +1,4 @@
-﻿namespace DataStructures;
+﻿namespace Heaps;
 
 internal sealed class PriorityQueueWithHeap
 {

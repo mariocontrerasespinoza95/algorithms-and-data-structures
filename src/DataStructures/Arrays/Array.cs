@@ -1,43 +1,13 @@
-﻿namespace DataStructures;
+﻿namespace Arrays;
 
 internal sealed class Array(int length)
 {
     private int[] _items = new int[length];
     private int _count;
+    
+    public void Print() => Console.WriteLine(_items);
 
-    public static void ProgramPrint()
-    {
-        var numbers = new Array(3);
-
-        numbers.Insert(10);
-        numbers.Insert(20);
-        numbers.Insert(30);
-        numbers.Insert(40);
-        numbers.InsertAt(50, 5);
-        Console.WriteLine("Index of 40: {0}", numbers.IndexOf(40));
-        Console.WriteLine("Index of 50: {0}", numbers.IndexOf(50));
-        Console.WriteLine("Max value: {0}", numbers.Max());
-        numbers.Print();
-        numbers.Reverse();
-        numbers.Print();
-
-        Console.WriteLine();
-        var numbers2 = new Array(3);
-
-        numbers2.Insert(10);
-        numbers2.Insert(30);
-        numbers2.Print();
-
-        Console.WriteLine();
-        Console.WriteLine("Intersected values");
-        numbers.Intersect(numbers2).Print();
-    }
-
-    public override string ToString() => ToString(_items);
-    public static string ToString<T>(IEnumerable<T> array) => $"[{string.Join(", ", array)}]";
-    private void Print() => Console.WriteLine($"[{string.Join(", ", _items)}]");
-
-    private void Insert(int item)
+    public void Insert(int item)
     {
         if (_items.Length == _count)
         {
@@ -69,7 +39,7 @@ internal sealed class Array(int length)
         _count--;
     }
 
-    private int IndexOf(int item)
+    public int IndexOf(int item)
     {
         for (int i = 0; i < _count; i++)
         {
@@ -82,7 +52,7 @@ internal sealed class Array(int length)
         return -1;
     }
 
-    private int Max()
+    public int Max()
     {
         int max = _items.Length > 0 ? _items[0] : default;
 
@@ -97,7 +67,7 @@ internal sealed class Array(int length)
         return max;
     }
 
-    private Array Intersect(Array array)
+    public Array Intersect(Array array)
     {
         var intersectedValues = new Array(1);
 
@@ -119,7 +89,7 @@ internal sealed class Array(int length)
         return intersectedValues;
     }
 
-    private void Reverse()
+    public void Reverse()
     {
         int superiorIndex = _count;
         for (int i = 0; superiorIndex - i > 1; i++)
@@ -130,7 +100,7 @@ internal sealed class Array(int length)
         }
     }
 
-    private void InsertAt(int item, int index)
+    public void InsertAt(int item, int index)
     {
         while (index > _count)
         {
@@ -147,4 +117,7 @@ internal sealed class Array(int length)
 
         _items[index] = item;
     }
+    
+    public override string ToString() => ToString(_items);
+    private static string ToString<T>(IEnumerable<T> array) => $"[{string.Join(", ", array)}]";
 }

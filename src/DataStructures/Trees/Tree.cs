@@ -1,62 +1,10 @@
-﻿namespace DataStructures;
+﻿namespace Trees;
 
 internal sealed class Tree
 {
     public static void ProgramPrint()
     {
-        var tree = new Tree();
-        tree.Insert(7);
-        tree.Insert(4);
-        tree.Insert(9);
-        tree.Insert(1);
-        tree.Insert(6);
-        tree.Insert(8);
-        tree.Insert(10);
-
-        Console.WriteLine("Pre Order");
-        tree.TraversePreOrder();
-        Console.WriteLine();
-
-        Console.WriteLine("In Order");
-        tree.TraverseInOrder();
-        Console.WriteLine();
-
-        Console.WriteLine("Height");
-        Console.WriteLine(tree.Height());
-        Console.WriteLine();
-
-        Console.WriteLine("Min");
-        Console.WriteLine(tree.Min());
-        Console.WriteLine();
-
-        var tree2 = new Tree();
-        tree2.Insert(7);
-        tree2.Insert(4);
-        tree2.Insert(9);
-        tree2.Insert(1);
-        tree2.Insert(6);
-        tree2.Insert(8);
-        tree2.Insert(10);
-        Console.WriteLine("Equals");
-        Console.WriteLine(tree.Equals(tree2));
-        Console.WriteLine();
-
-        Console.WriteLine("Is Binary Tree");
-        Console.WriteLine(tree.IsBinarySearchTree());
-        Console.WriteLine();
-
-        Console.WriteLine("Print Nodes At Distance");
-        List<int> list = tree.GetNodesAtDistance(1);
-        foreach (int item in list)
-        {
-            Console.WriteLine(item);
-        }
-
-        Console.WriteLine();
-
-        Console.WriteLine("Traverse Level Order");
-        tree.TraverseLevelOrder();
-        Console.WriteLine();
+        
     }
 
     private class Node(int value)
@@ -73,7 +21,7 @@ internal sealed class Tree
 
     private Node? _root;
 
-    private void Insert(int value)
+    public void Insert(int value)
     {
         var node = new Node(value);
 
@@ -129,7 +77,7 @@ internal sealed class Tree
         return false;
     }
 
-    private void TraversePreOrder() => TraversePreOrder(_root);
+    public void TraversePreOrder() => TraversePreOrder(_root);
     private static void TraversePreOrder(Node? root)
     {
         if (root == null)
@@ -142,7 +90,7 @@ internal sealed class Tree
         TraversePreOrder(root.RightChild!);
     }
 
-    private void TraverseInOrder() => TraverseInOrder(_root);
+    public void TraverseInOrder() => TraverseInOrder(_root);
     private static void TraverseInOrder(Node? root)
     {
         if (root == null)
@@ -155,7 +103,7 @@ internal sealed class Tree
         TraverseInOrder(root.RightChild!);
     }
 
-    private int Height() => Height(_root);
+    public int Height() => Height(_root);
     private static int Height(Node? root)
     {
         ArgumentNullException.ThrowIfNull(root);
@@ -169,7 +117,7 @@ internal sealed class Tree
     }
 
     // O(log n)
-    private int Min()
+    public int Min()
     {
         if (_root == null)
         {
@@ -220,7 +168,7 @@ internal sealed class Tree
         return false;
     }
 
-    private bool IsBinarySearchTree() => IsBinarySearchTree(_root, int.MinValue, int.MaxValue);
+    public bool IsBinarySearchTree() => IsBinarySearchTree(_root, int.MinValue, int.MaxValue);
     private static bool IsBinarySearchTree(Node? root, int min, int max)
     {
         if (root == null)
@@ -237,7 +185,7 @@ internal sealed class Tree
                && IsBinarySearchTree(root.RightChild, min: root.Value + 1, max);
     }
 
-    private List<int> GetNodesAtDistance(int distance)
+    public List<int> GetNodesAtDistance(int distance)
     {
         var list = new List<int>();
         GetNodesAtDistance(_root, distance, list);
@@ -261,7 +209,7 @@ internal sealed class Tree
         GetNodesAtDistance(root.RightChild, distance - 1, list);
     }
 
-    private void TraverseLevelOrder()
+    public void TraverseLevelOrder()
     {
         for (int i = 0; i <= Height(); i++)
         {

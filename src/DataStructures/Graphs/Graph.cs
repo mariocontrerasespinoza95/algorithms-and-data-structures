@@ -1,23 +1,7 @@
-﻿namespace DataStructures;
+﻿namespace Graphs;
 
 internal sealed class Graph
 {
-    public static void ProgramPrint()
-    {
-        var graph = new Graph();
-        graph.AddNode("A");
-        graph.AddNode("B");
-        graph.AddNode("C");
-        graph.AddNode("D");
-        graph.AddEdge("A", "B");
-        graph.AddEdge("B", "D");
-        graph.AddEdge("D", "C");
-        graph.AddEdge("A", "C");
-        graph.TraverseDepthFirst("A");
-        List<string> list = graph.TopologicalSort();
-        Console.WriteLine(Array.ToString(list.ToArray()));
-    }
-
     private class Node(string label)
     {
         internal readonly string Label = label;
@@ -28,14 +12,14 @@ internal sealed class Graph
     private readonly Dictionary<string, Node> _nodes = [];
     private readonly Dictionary<Node, List<Node>> _adjacencyList = [];
 
-    private void AddNode(string label)
+    public void AddNode(string label)
     {
         var node = new Node(label);
         _nodes[label] = node;
         _adjacencyList[node] = [];
     }
 
-    private void AddEdge(string from, string to)
+    public void AddEdge(string from, string to)
     {
         Node fromNode = _nodes[from];
         ArgumentNullException.ThrowIfNull(fromNode);
@@ -53,7 +37,7 @@ internal sealed class Graph
             List<Node> targets = _adjacencyList[source];
             if (targets.Count > 0)
             {
-                Console.WriteLine(source + " is connected to " + Array.ToString(targets.ToArray()));
+                Console.WriteLine(source + " is connected to " + $"[{string.Join(", ", targets)}]");
             }
         }
     }
@@ -103,16 +87,13 @@ internal sealed class Graph
         Console.WriteLine(root);
         visited.Add(root);
 
-        foreach (Node? node in _adjacencyList[root])
+        foreach (Node? node in _adjacencyList[root].Where(node => !visited.Contains(node)))
         {
-            if (!visited.Contains(node))
-            {
-                TraverseDepthFirstRecursive(node, visited);
-            }
+            TraverseDepthFirstRecursive(node, visited);
         }
     }
 
-    private void TraverseDepthFirst(string root)
+    public void TraverseDepthFirst(string root)
     {
         if (!_nodes.TryGetValue(root, out Node? node))
         {
@@ -136,12 +117,9 @@ internal sealed class Graph
             Console.WriteLine(current);
             visited.Push(current);
 
-            foreach (Node? neighbour in _adjacencyList[current])
+            foreach (Node? neighbour in _adjacencyList[current].Where(neighbour => !visited.Contains(neighbour)))
             {
-                if (!visited.Contains(neighbour))
-                {
-                    stack.Push(neighbour);
-                }
+                stack.Push(neighbour);
             }
         }
     }
@@ -170,17 +148,14 @@ internal sealed class Graph
             Console.WriteLine(current);
             visited.Add(current);
 
-            foreach (Node? neighbour in _adjacencyList[current])
+            foreach (Node? neighbour in _adjacencyList[current].Where(neighbour => !visited.Contains(neighbour)))
             {
-                if (!visited.Contains(neighbour))
-                {
-                    queue.Enqueue(neighbour);
-                }
+                queue.Enqueue(neighbour);
             }
         }
     }
 
-    private List<string> TopologicalSort()
+    public IEnumerable<string> TopologicalSort()
     {
         HashSet<Node> visited = [];
         Stack<Node> stack = [];
@@ -199,7 +174,7 @@ internal sealed class Graph
         return sorted;
     }
 
-    private void TopologicalSort(Node node, HashSet<Node> visited, Stack<Node> stack)
+    private void TopologicalSort(Node node, ISet<Node> visited, Stack<Node> stack)
     {
         if (!visited.Add(node))
         {
@@ -239,20 +214,15 @@ internal sealed class Graph
 
     private bool HasCycle(
         Node node,
-        HashSet<Node> all,
-        HashSet<Node> visiting,
-        HashSet<Node> visited)
+        ICollection<Node> all,
+        ISet<Node> visiting,
+        ISet<Node> visited)
     {
         all.Remove(node);
         visiting.Add(node);
 
-        foreach (Node? neighbour in _adjacencyList[node])
+        foreach (Node? neighbour in _adjacencyList[node].Where(neighbour => !visited.Contains(neighbour)))
         {
-            if (visited.Contains(neighbour))
-            {
-                continue;
-            }
-
             if (visiting.Contains(neighbour))
             {
                 return true;

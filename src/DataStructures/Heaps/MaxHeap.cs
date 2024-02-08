@@ -1,19 +1,8 @@
-﻿namespace DataStructures;
+﻿namespace Heaps;
 
-internal sealed class MaxHeap
+internal static class MaxHeap
 {
-    public static void ProgramPrint()
-    {
-        int[] numbers = [5, 3, 8, 4, 1, 2];
-
-        Heapify(numbers);
-        Console.WriteLine(Array.ToString(numbers));
-
-        numbers = [5, 3, 8, 4, 1, 2];
-        Console.WriteLine(GetKthLargest(numbers, 6));
-    }
-
-    private static void Heapify(IList<int> array)
+    public static void Heapify(IList<int> array)
     {
         int lastParentIndex = array.Count / 2 - 1;
         for (int i = lastParentIndex; i >= 0; i--)
@@ -52,7 +41,7 @@ internal sealed class MaxHeap
     private static void Swap(IList<int> array, int first, int second) =>
         (array[second], array[first]) = (array[first], array[second]);
 
-    private static int GetKthLargest(IReadOnlyCollection<int> array, int k)
+    public static int GetKthLargest(IReadOnlyCollection<int> array, int k)
     {
         if (k < 1 || k > array.Count)
         {
@@ -72,4 +61,6 @@ internal sealed class MaxHeap
 
         return heap.Max();
     }
+    
+    public static string ToString<T>(IEnumerable<T> collection) => $"[{string.Join(", ", collection)}]";
 }

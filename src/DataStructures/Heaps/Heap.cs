@@ -1,17 +1,7 @@
-﻿namespace DataStructures;
+﻿namespace Heaps;
 
 internal sealed class Heap
 {
-    public static void ProgramPrint()
-    {
-        var heap = new Heap();
-        heap.Insert(10);
-        heap.Insert(5);
-        heap.Insert(17);
-        heap.Insert(4);
-        heap.Insert(22);
-        heap.Remove();
-    }
 
     private readonly int[] _items = new int[10];
     private int _size;

@@ -1,23 +1,4 @@
-﻿namespace DataStructures;
-
-internal sealed class LinkedList
-{
-    public static void ProgramPrint()
-    {
-        var list = new LinkedList<int>();
-        list.AddLast(10);
-        list.AddLast(20);
-        list.AddLast(30);
-        list.AddLast(40);
-        list.AddLast(50);
-        list.RemoveFirst();
-        Console.WriteLine(list.IndexOf(10));
-        list.Reverse();
-        Console.WriteLine(list.Size);
-        Console.WriteLine($"[{string.Join(", ", list.ToArray())}]");
-        Console.WriteLine(list.GetKthFromTheEnd(1));
-    }
-}
+namespace LinkedLists;
 
 internal class LinkedList<T> where T : notnull
 {
@@ -216,3 +197,4 @@ internal class LinkedList<T> where T : notnull
 
     private bool IsEmpty => _first == null;
 }
+

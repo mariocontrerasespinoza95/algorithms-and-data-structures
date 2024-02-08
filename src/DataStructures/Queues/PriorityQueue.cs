@@ -1,4 +1,4 @@
-﻿namespace DataStructures;
+﻿namespace Queues;
 
 internal sealed class PriorityQueue(int size)
 {
@@ -7,21 +7,10 @@ internal sealed class PriorityQueue(int size)
 
     public static void ProgramPrint()
     {
-        var queue = new PriorityQueue(5);
-        queue.Add(5);
-        queue.Add(3);
-        queue.Add(6);
-        queue.Add(1);
-        queue.Add(4);
-        Console.WriteLine(queue);
-
-        while (!queue.IsEmpty())
-        {
-            Console.WriteLine(queue.Remove());
-        }
+        
     }
 
-    private void Add(int item)
+    public void Add(int item)
     {
         if (IsFull())
         {
@@ -33,7 +22,7 @@ internal sealed class PriorityQueue(int size)
         _count++;
     }
 
-    private int Remove()
+    public int Remove()
     {
         if (IsEmpty())
         {
@@ -43,7 +32,7 @@ internal sealed class PriorityQueue(int size)
         return _items[--_count];
     }
 
-    private int ShiftItemsToInsert(int item)
+    public int ShiftItemsToInsert(int item)
     {
         int i;
         for (i = _count - 1; i >= 0; i--)
@@ -61,11 +50,13 @@ internal sealed class PriorityQueue(int size)
         return i + 1;
     }
 
-    private bool IsEmpty() => _count == 0;
-    private bool IsFull() => _count == _items.Length;
+    public bool IsEmpty() => _count == 0;
+    public bool IsFull() => _count == _items.Length;
 
     public override string ToString()
     {
-        return Array.ToString(_items);
+        return ToString(_items);
     }
+    
+    private static string ToString<T>(IEnumerable<T> collection) => $"[{string.Join(", ", collection)}]";
 }

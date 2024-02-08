@@ -1,25 +1,7 @@
-﻿namespace DataStructures;
+﻿namespace Tries;
 
 internal sealed class Trie
 {
-    public static void ProgramPrint()
-    {
-        var trie = new Trie();
-        trie.Insert(word: "car");
-        trie.Insert(word: "card");
-        trie.Insert(word: "care");
-        Console.WriteLine(trie.Contains("car"));
-        Console.WriteLine(trie.Contains("care"));
-
-        trie.Remove(word: "care");
-        trie.Insert(word: "care");
-        trie.Insert(word: "careful");
-        trie.Insert(word: "egg");
-
-        List<string> words = trie.FindWords(prefix: "ca");
-        Console.WriteLine(Array.ToString(words.ToArray()));
-    }
-
     private class Node(char value)
     {
         internal char Value { get; init; } = value;
@@ -47,7 +29,7 @@ internal sealed class Trie
 
     private readonly Node _root = new(' ');
 
-    private void Insert(string word)
+    public void Insert(string word)
     {
         ArgumentNullException.ThrowIfNull(word);
 
@@ -65,7 +47,7 @@ internal sealed class Trie
         current!.IsEndOfWord = true;
     }
 
-    private bool Contains(string? word)
+    public bool Contains(string? word)
     {
         if (word == null)
         {
@@ -97,7 +79,7 @@ internal sealed class Trie
         }
     }
 
-    private void Remove(string? word)
+    public void Remove(string? word)
     {
         if (word == null)
         {
@@ -130,7 +112,7 @@ internal sealed class Trie
         }
     }
 
-    private List<string> FindWords(string prefix)
+    public List<string> FindWords(string prefix)
     {
         var words = new List<string>();
         Node? lastNode = FindLastNodeOf(prefix);
